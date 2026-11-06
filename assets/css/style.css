@@ -94,6 +94,22 @@ body {
   border-top: 1px solid var(--line);
 }
 
+/* Une préférence simple : réduire l'espace autour des documents. */
+.document-list.compact .document-item {
+  padding-top: .55rem;
+  padding-bottom: .55rem;
+}
+
+.demo-title {
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+.demo-text, .demo-status {
+  color: var(--muted);
+  font-size: .85rem;
+}
+
 .document-icon {
   display: grid;
   flex: 0 0 46px;
