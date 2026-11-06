@@ -2,14 +2,15 @@
 
 ## Objectif
 
-Ce dépôt rassemble deux états successifs de l'interface réalisée au jour 1. Il ne nécessite ni PHP, ni Composer, ni Docker pour ces deux étapes : les fichiers HTML, CSS, JavaScript et Bootstrap sont déjà fournis.
+Ce dépôt rassemble les étapes successives de l'interface. Les deux étapes du jour 1 ne nécessitent ni PHP, ni Composer, ni Docker : les fichiers HTML, CSS, JavaScript et Bootstrap sont déjà fournis.
 
 | Branche | Contenu |
 | --- | --- |
 | `jour1-interface` | Interface responsive, liste fictive et formulaire en JavaScript. |
 | `jour1-ressources-stockage` | Même interface avec une préférence d'affichage conservée dans `localStorage`. |
+| `jour2-fetch-documents` | Correction de la liaison avec l'API Laravel, à lancer avec Docker. |
 
-Les documents ajoutés restent temporaires : ils disparaissent au rechargement. Aucun fichier ni donnée de document n'est envoyé à Laravel à ces étapes.
+Dans les deux branches du jour 1, les documents ajoutés restent temporaires : ils disparaissent au rechargement. Aucun fichier ni donnée de document n'est envoyé à Laravel à ces étapes.
 
 ## 1. Cloner le projet
 
@@ -57,6 +58,6 @@ Rechargez `index.html` dans le navigateur. Activez **Affichage compact**, puis r
 - `assets/js/securite.js` : préférence d'affichage dans la branche `jour1-ressources-stockage`.
 - `assets/vendor/bootstrap/` : Bootstrap et sa licence, disponibles localement.
 
-L'API Laravel est dans un [dépôt distinct](https://github.com/kamel-collab/formation-laravel-special). La liaison avec `fetch` sera réalisée lors d'une étape ultérieure.
+L'API Laravel est dans un [dépôt distinct](https://github.com/kamel-collab/formation-laravel-special). La liaison avec `fetch` est traitée au jour 2.
 
 Pour réaliser cette liaison au jour 2 depuis `jour1-ressources-stockage`, suivez le [TD Fetch et documents](TD-Fetch-Documents.md). La branche `jour2-fetch-documents` contient la correction.
