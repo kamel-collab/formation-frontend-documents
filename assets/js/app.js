@@ -7,7 +7,7 @@ const documentCount = document.querySelector('#document-count');
 const listMessage = document.querySelector('#list-message');
 const formMessage = document.querySelector('#form-message');
 const submitButton = form.querySelector('button[type="submit"]');
-const apiUrl = '/api/documents';
+const apiUrl = 'http://localhost:8088/api/documents';
 
 // Construire une ligne à partir des données renvoyées par l'API.
 function createDocument(documentData) {

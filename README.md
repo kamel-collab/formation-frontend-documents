@@ -5,14 +5,8 @@ Cette branche relie l'interface du jour 1 à l'API Laravel : les titres et les c
 ## Démarrer
 
 1. Dans le projet [Laravel](https://github.com/kamel-collab/formation-laravel-special), utilisez la branche `jour2-api-crud-documents`, démarrez Docker et exécutez les migrations dans la base de formation.
-2. Dans le dossier de cette interface, démarrez son serveur :
+2. Ouvrez `index.html` dans le navigateur. Le JavaScript appelle l'API à l'adresse `http://localhost:8088/api/documents`.
 
-```bash
-docker compose up -d
-```
-
-3. Ouvrez <http://localhost:8089>. Utilisez cette adresse plutôt que l'ouverture directe de `index.html` pour les échanges avec l'API.
-
-Le serveur web sert l'interface et transmet les requêtes `/api/` au service Laravel sur le réseau Docker. Démarrez Laravel avant l'interface afin que ce réseau soit disponible. Le premier démarrage peut télécharger l'image Caddy.
+Laravel prend en charge CORS pour ses routes API avec sa configuration par défaut. Le navigateur peut ainsi lire la réponse lorsque l'interface et l'API ont des origines différentes. Cette configuration ouverte convient à la démonstration locale ; elle devra être adaptée à une application réelle.
 
 Le [TD Fetch](TD-Fetch-Documents.md), disponible sur la branche `jour1-ressources-stockage`, explique pas à pas le code et les vérifications. Le [guide de démarrage du jour 1](GUIDE.md) reste disponible pour les étapes précédentes.
