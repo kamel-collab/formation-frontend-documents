@@ -30,6 +30,8 @@ Le fichier éventuellement sélectionné reste sur votre ordinateur. L'interface
 
 ## 3. Passer à l'étape ressources et stockage
 
+Pour réaliser cette étape vous-même à partir de `jour1-interface`, suivez le [TD Ressources locales et stockage](TD-Ressources-et-stockage.md). La branche `jour1-ressources-stockage` sert de correction.
+
 Dans un terminal ouvert à la racine du projet, vérifiez l'état de votre travail :
 
 ```bash
