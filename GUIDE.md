@@ -8,7 +8,7 @@ Ce dépôt rassemble les étapes successives de l'interface. Les deux étapes du
 | --- | --- |
 | `jour1-interface` | Interface responsive, liste fictive et formulaire en JavaScript. |
 | `jour1-ressources-stockage` | Même interface avec une préférence d'affichage conservée dans `localStorage`. |
-| `jour2-fetch-documents` | Correction de la liaison avec l'API Laravel, à lancer avec Docker. |
+| `jour2-fetch-documents` | Correction de la liaison avec l'API Laravel ; seul le projet Laravel utilise Docker. |
 
 Dans les deux branches du jour 1, les documents ajoutés restent temporaires : ils disparaissent au rechargement. Aucun fichier ni donnée de document n'est envoyé à Laravel à ces étapes.
 

@@ -46,51 +46,13 @@ git branch --show-current
 
 Si nécessaire, sauvegardez votre travail, puis lancez `git switch jour1-ressources-stockage`. Si Git refuse le changement, demandez au formateur comment conserver vos modifications. La branche `jour2-fetch-documents` servira de correction.
 
-## 2. Préparer le serveur de l'interface
+## 2. Comprendre l'adresse de l'API et CORS
 
-Ouvrir directement `index.html` utilise une adresse `file://`. Pour ce TD, nous ouvrons plutôt une adresse HTTP locale. Un petit serveur Caddy dans Docker fournit la page et transmet les requêtes `/api/` au conteneur Laravel. Ainsi, le navigateur utilise la même origine pour la page et l'API.
+Vous allez ouvrir `index.html` directement dans le navigateur. Le JavaScript appellera Laravel à l'adresse `http://localhost:8088/api/documents`, où le port 8088 correspond au port publié par Docker pour l'application Laravel.
 
-Dans VS Code, créez **`compose.yaml` à la racine du projet front-end**. Copiez exactement :
+La page locale et l'API n'ont pas la même origine. CORS est le mécanisme qui permet au navigateur de vérifier si l'API autorise cette communication. Pour ses routes API, Laravel dispose déjà d'une configuration CORS par défaut qui accepte les requêtes nécessaires à cet exercice ; il n'y a rien à ajouter ici.
 
-```yaml
-name: formation-frontend
-
-services:
-  web:
-    image: caddy:2-alpine
-    ports:
-      - "127.0.0.1:8089:80"
-    volumes:
-      - ./index.html:/srv/index.html:ro
-      - ./assets:/srv/assets:ro
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-    networks:
-      - laravel
-
-networks:
-  laravel:
-    external: true
-    name: ${BACKEND_NETWORK:-formation-laravel_default}
-```
-
-`8089:80` rend le serveur accessible sur le port 8089 de votre poste. Les fichiers de l'interface sont montés en lecture seule. Le réseau `formation-laravel_default` est créé par le projet Laravel lorsque ses services démarrent ; démarrez donc Laravel avant cette interface. Le premier lancement peut télécharger l'image Caddy.
-
-À la même racine, créez un fichier nommé **`Caddyfile`** sans extension :
-
-```text
-:80 {
-    handle /api/* {
-        reverse_proxy app:8080
-    }
-
-    handle {
-        root * /srv
-        file_server
-    }
-}
-```
-
-La première partie transmet les adresses `/api/...` au service Docker `app` de Laravel. La seconde sert la page et ses fichiers. Dans le JavaScript, nous pourrons ainsi utiliser simplement `/api/documents`.
+Cette configuration ouverte convient à la démonstration locale sans authentification. Pour une application réelle, il faudra adapter les origines autorisées et la sécurité au contexte. Selon le navigateur, l'ouverture directe en `file://` peut être soumise à des restrictions ; consultez le tableau de dépannage en cas de blocage.
 
 ## 3. Préparer la liste dans la page HTML
 
@@ -161,7 +123,7 @@ const documentCount = document.querySelector('#document-count');
 const listMessage = document.querySelector('#list-message');
 const formMessage = document.querySelector('#form-message');
 const submitButton = form.querySelector('button[type="submit"]');
-const apiUrl = '/api/documents';
+const apiUrl = 'http://localhost:8088/api/documents';
 
 // Construire une ligne à partir des données renvoyées par l'API.
 function createDocument(documentData) {
@@ -288,14 +250,7 @@ La fonction `loadDocuments` est appelée au chargement et après une création r
 
 ## 7. Démarrer et vérifier
 
-Assurez-vous que les conteneurs Laravel sont démarrés. Dans un autre terminal, ouvert **à la racine du front-end** où se trouvent le nouveau `compose.yaml` et le `Caddyfile`, lancez :
-
-```bash
-docker compose up -d
-docker compose ps
-```
-
-Ouvrez **<http://localhost:8089>**. N'ouvrez plus `index.html` directement pour ce TD.
+Assurez-vous que les conteneurs Laravel sont démarrés et que les migrations ont été exécutées dans la base de formation. Dans le dossier front-end, ouvrez **`index.html` directement dans votre navigateur**.
 
 1. La liste présente les documents déjà enregistrés, ou indique qu'elle est vide.
 2. Saisissez un titre et une catégorie, puis cliquez sur **Ajouter le document**.
@@ -304,13 +259,7 @@ Ouvrez **<http://localhost:8089>**. N'ouvrez plus `index.html` directement pour 
 5. Activez **Affichage compact** puis rechargez : la préférence reste mémorisée si le navigateur autorise `localStorage`.
 6. Essayez un titre vide ou trop court : le navigateur doit signaler l'erreur avant l'envoi.
 
-Pour arrêter le serveur de l'interface après le TD, exécutez depuis le front-end :
-
-```bash
-docker compose stop
-```
-
-Cette commande arrête seulement le service front-end. Vous pouvez ensuite arrêter les services Laravel depuis le dossier Laravel avec sa propre commande `docker compose stop`.
+À la fin du TD, si vous souhaitez arrêter Laravel, ouvrez le terminal du projet Laravel et exécutez `docker compose stop`. Cette commande conserve les données du volume PostgreSQL.
 
 ## 8. Comparer avec la correction
 
@@ -319,13 +268,6 @@ La branche `jour2-fetch-documents` contient le résultat attendu. Ne changez pas
 ```bash
 git fetch origin
 git diff origin/jour2-fetch-documents -- index.html assets/js/app.js
-```
-
-Les fichiers `compose.yaml` et `Caddyfile` sont nouveaux sur votre branche de travail ; pour les comparer sans les ajouter à Git :
-
-```bash
-git show origin/jour2-fetch-documents:compose.yaml
-git show origin/jour2-fetch-documents:Caddyfile
 ```
 
 ## Questions de compréhension
@@ -340,8 +282,7 @@ git show origin/jour2-fetch-documents:Caddyfile
 
 | Situation | Vérification |
 | --- | --- |
-| Le réseau `formation-laravel_default` est introuvable | Démarrez d'abord les conteneurs depuis le dossier Laravel avec `docker compose up -d`. |
-| Le port 8089 est occupé | Demandez au formateur de choisir un port libre et d'adapter la partie gauche de `127.0.0.1:8089:80`, puis l'adresse du navigateur. |
-| La page affiche une erreur de chargement ou d'ajout | Vérifiez `docker compose ps` dans chacun des deux projets, l'API CRUD et les migrations. Consultez les journaux avec `docker compose logs` dans le projet concerné. |
-| La liste ne change pas après modification du code | Enregistrez les fichiers, puis rechargez <http://localhost:8089>. Vérifiez la console du navigateur. |
+| La page affiche une erreur de chargement ou d'ajout | Dans le projet Laravel, vérifiez `docker compose ps`, les routes CRUD et les migrations. L'API doit répondre sur `http://localhost:8088/api/documents`. |
+| Le navigateur signale une erreur CORS | Vérifiez la configuration CORS de Laravel et consultez la console. Le comportement des pages `file://` peut varier selon le navigateur ; demandez au formateur si le poste bloque ces requêtes. |
+| La liste ne change pas après modification du code | Enregistrez les fichiers et rechargez `index.html`. Vérifiez la console du navigateur. |
 | Une modification est refusée par Git | Sauvegardez votre travail et demandez l'aide du formateur avant de changer de branche. |
