@@ -58,3 +58,5 @@ Rechargez `index.html` dans le navigateur. Activez **Affichage compact**, puis r
 - `assets/vendor/bootstrap/` : Bootstrap et sa licence, disponibles localement.
 
 L'API Laravel est dans un [dépôt distinct](https://github.com/kamel-collab/formation-laravel-special). La liaison avec `fetch` sera réalisée lors d'une étape ultérieure.
+
+Pour réaliser cette liaison au jour 2 depuis `jour1-ressources-stockage`, suivez le [TD Fetch et documents](TD-Fetch-Documents.md). La branche `jour2-fetch-documents` contient la correction.
