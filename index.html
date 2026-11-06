@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Une interface simple pour gérer des documents.">
+  <title>Mes documents</title>
+  <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark site-navbar" aria-label="Navigation principale">
+      <div class="container py-2">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#accueil">
+          <span class="brand-mark" aria-hidden="true">D</span>
+          <span>Mes documents</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
+          aria-controls="navigation" aria-expanded="false" aria-label="Ouvrir le menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigation">
+          <ul class="navbar-nav ms-auto pt-3 pt-md-0">
+            <li class="nav-item"><a class="nav-link active" href="#documents">Documents</a></li>
+            <li class="nav-item"><a class="nav-link" href="#ajouter">Ajouter un document</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="accueil" class="container page-content">
+    <div class="page-heading mb-4 mb-lg-5">
+      <p class="eyebrow mb-2">ESPACE DOCUMENTAIRE</p>
+      <h1 class="display-title mb-2">Mes documents</h1>
+      <p class="page-intro mb-0">Retrouvez vos documents et ajoutez-en de nouveaux facilement.</p>
+    </div>
+
+    <div class="row g-4 align-items-start">
+      <section id="documents" class="col-12 col-lg-7 col-xl-8" aria-labelledby="documents-title">
+        <div class="card app-card h-100">
+          <div class="card-body p-4 p-md-4">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+              <div>
+                <h2 id="documents-title" class="section-title mb-1">Liste des documents</h2>
+                <p class="section-subtitle mb-0">Vos documents récents</p>
+              </div>
+              <span id="document-count" class="count-label">3 documents</span>
+            </div>
+
+            <div id="document-list" class="document-list">
+              <article class="document-item">
+                <span class="document-icon" aria-hidden="true">PDF</span>
+                <div class="document-details">
+                  <h3>Contrat de formation</h3>
+                  <p>Administratif <span aria-hidden="true">·</span> 12 octobre 2026</p>
+                </div>
+                <span class="category-label">Administratif</span>
+              </article>
+              <article class="document-item">
+                <span class="document-icon" aria-hidden="true">PDF</span>
+                <div class="document-details">
+                  <h3>Support de cours</h3>
+                  <p>Formation <span aria-hidden="true">·</span> 15 octobre 2026</p>
+                </div>
+                <span class="category-label">Formation</span>
+              </article>
+              <article class="document-item">
+                <span class="document-icon doc-icon" aria-hidden="true">DOC</span>
+                <div class="document-details">
+                  <h3>Compte rendu</h3>
+                  <p>Projet <span aria-hidden="true">·</span> 21 octobre 2026</p>
+                </div>
+                <span class="category-label">Projet</span>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ajouter" class="col-12 col-lg-5 col-xl-4" aria-labelledby="ajouter-title">
+        <div class="card app-card form-card">
+          <div class="card-body p-4">
+            <h2 id="ajouter-title" class="section-title mb-1">Ajouter un document</h2>
+            <p class="section-subtitle mb-4">Renseignez les informations ci-dessous.</p>
+
+            <div id="form-message" class="alert alert-success d-none" role="status" aria-live="polite"></div>
+
+            <form id="document-form" novalidate>
+              <div class="mb-3">
+                <label class="form-label" for="document-title">Titre du document</label>
+                <input class="form-control" id="document-title" name="title" type="text"
+                  placeholder="Ex. : Rapport de réunion" minlength="3" maxlength="100" required>
+                <div class="invalid-feedback">Saisissez au moins 3 caractères.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="document-category">Catégorie</label>
+                <select class="form-select" id="document-category" name="category" required>
+                  <option value="" selected>Choisir une catégorie</option>
+                  <option value="Administratif">Administratif</option>
+                  <option value="Formation">Formation</option>
+                  <option value="Projet">Projet</option>
+                  <option value="Autre">Autre</option>
+                </select>
+                <div class="invalid-feedback">Choisissez une catégorie.</div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label" for="document-file">Fichier <span class="optional-label">(facultatif)</span></label>
+                <input class="form-control" id="document-file" name="file" type="file" accept=".pdf,.doc,.docx">
+                <div class="form-text">Démonstration : aucun fichier n’est encore envoyé.</div>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 add-button">Ajouter le document</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="container page-footer">
+    <p class="mb-0">Interface de démonstration <span aria-hidden="true">·</span> Formation développement web</p>
+  </footer>
+</body>
+</html>
