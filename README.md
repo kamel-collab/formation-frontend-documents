@@ -1,12 +1,18 @@
-# Application Mes documents — liaison à l'API
+# Application Mes documents — API sécurisée
 
-Cette branche relie l'interface du jour 1 à l'API Laravel : les titres et les catégories sont chargés depuis la base et les ajouts sont envoyés avec `fetch`. Aucun fichier n'est téléversé. La préférence d'affichage compact reste dans `localStorage`.
+Cette branche contient la correction du TD du jour 4. L'interface se connecte à l'API de la branche Laravel `jour3-securite-documents`.
 
-## Démarrer
+## Essayer
 
-1. Dans le projet [Laravel](https://github.com/kamel-collab/formation-laravel-special), utilisez la branche `jour2-api-crud-documents`, démarrez Docker et exécutez les migrations dans la base de formation.
-2. Ouvrez `index.html` dans le navigateur. Le JavaScript appelle l'API à l'adresse `http://localhost:8088/api/documents`.
+1. Vérifiez que l'API du jour 3 est configurée et disponible sur `http://localhost:8088`. Utilisez une base locale de formation déjà préparée et les comptes donnés par le formateur.
+2. Ouvrez `index.html` dans le navigateur, connectez-vous, puis créez un document.
+3. Sur sa ligne, choisissez un PDF fictif de 1 Mo maximum, cliquez sur **Envoyer le PDF**, puis sur **Télécharger le PDF**.
+4. Déconnectez-vous, connectez-vous avec le second compte et vérifiez que son utilisateur ne voit pas les documents du premier.
 
-Laravel prend en charge CORS pour ses routes API avec sa configuration par défaut. Le navigateur peut ainsi lire la réponse lorsque l'interface et l'API ont des origines différentes. Cette configuration ouverte convient à la démonstration locale ; elle devra être adaptée à une application réelle.
+Le token Sanctum reste uniquement dans la mémoire de la page. Un rechargement demande une nouvelle connexion. La déconnexion tente également de révoquer le token sur le serveur. Aucun mot de passe ni token n'est enregistré dans `localStorage` : seule la préférence d'affichage compact y est conservée.
 
-Le [TD Fetch](TD-Fetch-Documents.md), disponible sur la branche `jour1-ressources-stockage`, explique pas à pas le code et les vérifications. Le [guide de démarrage du jour 1](GUIDE.md) reste disponible pour les étapes précédentes.
+La création des informations du document et l'envoi du PDF sont deux requêtes distinctes. Si l'envoi échoue, le document existe déjà : réessayez depuis sa ligne plutôt que de le créer une seconde fois. L'API accepte un seul fichier par document et masque son chemin privé ; un téléchargement sans fichier accessible renvoie 404. La validation du navigateur ne remplace pas celle de Laravel.
+
+## Guide
+
+Le TD `TD-Interface-API-Securisee.md` est disponible sur la branche de départ `jour2-fetch-documents`. Suivez-le pour construire cette correction étape par étape. Les guides des jours précédents restent disponibles dans le dépôt.
