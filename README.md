@@ -10,3 +10,7 @@ Cette branche relie l'interface du jour 1 à l'API Laravel : les titres et les c
 Laravel prend en charge CORS pour ses routes API avec sa configuration par défaut. Le navigateur peut ainsi lire la réponse lorsque l'interface et l'API ont des origines différentes. Cette configuration ouverte convient à la démonstration locale ; elle devra être adaptée à une application réelle.
 
 Le [TD Fetch](TD-Fetch-Documents.md), disponible sur la branche `jour1-ressources-stockage`, explique pas à pas le code et les vérifications. Le [guide de démarrage du jour 1](GUIDE.md) reste disponible pour les étapes précédentes.
+
+## Jour 4 : interface et API sécurisée
+
+Pour adapter cette interface à l’API Laravel de la branche `jour3-securite-documents`, suivez le [TD Interface et API sécurisée](TD-Interface-API-Securisee.md). La branche `jour4-interface-api-securisee` contient la correction. Les comptes et données utilisés doivent appartenir à la formation locale.
