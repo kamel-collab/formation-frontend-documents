@@ -11,8 +11,8 @@ Cette branche contient la correction du TD du jour 4. L'interface se connecte à
 
 Le token Sanctum reste uniquement dans la mémoire de la page. Un rechargement demande une nouvelle connexion. La déconnexion tente également de révoquer le token sur le serveur. Aucun mot de passe ni token n'est enregistré dans `localStorage` : seule la préférence d'affichage compact y est conservée.
 
-La création des informations du document et l'envoi du PDF sont deux requêtes distinctes. Si l'envoi échoue, le document existe déjà : réessayez depuis sa ligne plutôt que de le créer une seconde fois. L'API accepte un seul fichier par document et masque son chemin privé ; un téléchargement sans fichier accessible renvoie 404. La validation du navigateur ne remplace pas celle de Laravel.
+La création des informations du document et l’envoi du PDF sont deux requêtes distinctes. Si l’envoi échoue, le document existe déjà : réessayez depuis sa ligne plutôt que de le créer une seconde fois. L’API accepte un seul fichier par document et masque son chemin privé ; un téléchargement sans fichier accessible renvoie 404. La validation du navigateur ne remplace pas celle de Laravel.
 
-## Guide
+## Guides
 
-Le TD `TD-Interface-API-Securisee.md` est disponible sur la branche de départ `jour2-fetch-documents`. Suivez-le pour construire cette correction étape par étape. Les guides des jours précédents restent disponibles dans le dépôt.
+Le [TD Interface et API sécurisée](TD-Interface-API-Securisee.md) est disponible sur la branche de départ `jour2-fetch-documents`. Suivez-le pour construire cette correction étape par étape. Le [TD Fetch](TD-Fetch-Documents.md) et le [guide de démarrage du jour 1](GUIDE.md) restent disponibles pour les étapes précédentes.
